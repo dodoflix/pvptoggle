@@ -1,0 +1,8 @@
+name: Pvptoggle
+version: '${project.version}'
+main: me.dodo.pvptoggle.Pvptoggle
+api-version: 1.18
+prefix: PvPToggle
+authors: [ dodo ]
+description: Advanced PVP Toggle plugin.
+website: https://github.com/dodoflix
