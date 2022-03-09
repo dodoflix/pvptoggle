@@ -7,6 +7,7 @@ import me.dodo.pvptoggle.events.CMIPvPEnd;
 import me.dodo.pvptoggle.events.EntityDamageByEntity;
 import me.dodo.pvptoggle.events.PlayerJoin;
 import me.dodo.pvptoggle.expansions.Placeholder;
+import me.dodo.pvptoggle.settings.ConfigManager;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,6 +17,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class Pvptoggle extends JavaPlugin {
+    private ConfigManager configManager;
+
     private static Pvptoggle Main;
     private List<User> Users;
     private boolean CMI;
@@ -24,10 +27,12 @@ public final class Pvptoggle extends JavaPlugin {
     @Override
     public void onEnable() {
         Main = this;
+        configManager = new ConfigManager(this);
+        configManager.loadConfig();
 
         Users = new ArrayList<>();
         for (Player player : getServer().getOnlinePlayers()) {
-            User onlinePlayer = new User(player.getUniqueId(), false);
+            User onlinePlayer = new User(player.getUniqueId(), configManager.getPvPConf().defaultPvP());
             Users.add(onlinePlayer);
         }
 
@@ -50,6 +55,10 @@ public final class Pvptoggle extends JavaPlugin {
 
     public static Pvptoggle getInstance() {
         return Main;
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
     }
 
     public List<User> findUser(Player player) {

@@ -2,6 +2,7 @@ package me.dodo.pvptoggle.commands;
 
 import me.dodo.pvptoggle.Pvptoggle;
 import me.dodo.pvptoggle.cache.User;
+import me.dodo.pvptoggle.settings.ConfigManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,10 +10,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Toggle implements CommandExecutor {
-    private Pvptoggle instance;
+    private final Pvptoggle instance;
+    private static ConfigManager configManager;
 
     public Toggle() {
         instance = Pvptoggle.getInstance();
+        configManager = instance.getConfigManager();
     }
 
 
@@ -27,12 +30,12 @@ public class Toggle implements CommandExecutor {
         if(!user.isCmiPvP()){
             user.setPvp(!user.isPvp());
             if(user.isPvp())
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&bPandoPvP&8] &cArtık oyuncular sana saldırabilir."));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', configManager.getMessagesConf().pvpOn()));
             else
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&bPandoPvP&8] &aArtık oyuncular sana saldıramaz."));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', configManager.getMessagesConf().pvpOff()));
         }
         else {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&bPandoPvP&8] &cSavaştayken bu komudu kullanamazsın."));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', configManager.getMessagesConf().cantUseWhilePvp()));
         }
         return true;
     }

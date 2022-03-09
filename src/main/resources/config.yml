@@ -1,0 +1,11 @@
+settings:
+  default: false
+  placeholderon: "True"
+  placehodleroff: "False"
+
+messages:
+  pvpon: "Artık oyuncular sana saldırabilir."
+  pvpoff: "Artık oyuncular sana saldıramaz."
+  cantusewhilepvp: "Savaştayken bu komudu kullanamazsın."
+  pvpoffattack: "PvP Kapalıyken diğer oyunculara saldıramazsın."
+  pvpoffattackother: "%s adlı oyuncunun PvP'si kapalı."
